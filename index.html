@@ -329,7 +329,7 @@
           el.oninput = () => {
             if(l=el.value){
               chosenDemo = customJS = l
- 	      if(customScript){
+ 	      if(typeof customScript !== 'undefined'){
 		document.body.removeChild(customScript)
 	      }
 	      customSrc = `function bypass_eval(){` + customJS + `}`
