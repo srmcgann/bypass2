@@ -12,7 +12,7 @@
       canvas{
         border: 2px solid #486;
         position: absolute;
-        top: 50%;
+        top: calc(50% + 100px);
         left: 50%;
         background-color: #222;
         background-position: center center;
@@ -45,6 +45,20 @@
         transform: translate(-50%,-50%);
         font-size: 24px;
       }
+      #codeArea:focus{
+        outline: none;
+      }
+      #codeArea{
+        width: calc(100vw - 100px);
+        border: 1px solid #4f88;
+        position: absolute;
+        left: 50%;
+        margin-top: 10px;
+        height: 80px;
+        transform: translate(-50%);
+        background: #002;
+        color: #0f8;
+      }
     </style>
     <script>
       url = location.href.split('src=')[1].split('&')[0]
@@ -53,6 +67,7 @@
   <body>
     <button onclick="Draw_()" id="button">Draw</button>
     <div style="font-family: courier;position:absolute; z-index:-100">a</div>
+    <textarea placeholder="code" spellcheck="false" id="codeArea"></textarea>
     <canvas id="c"></canvas>
   </body>
   <script>
@@ -302,20 +317,14 @@
         } else {
           animationStyle=0
         }
-        if(window.location.href.indexOf('usekey=')!=1){
-          animationStyle=2
-          url = window.location.href.split('usekey=')[1].split('&')[0]
-          url = 'https://cdpn.io/cpe/boomboom/pen.js?key=pen.js-' + url
-          await fetch(url).then(res=>res.text()).then(data=>{
-            chosenDemo = data
-          })
-        }
         if(window.location.href.indexOf('usefile=')!=-1){
           animationStyle=2
           url=window.location.href.split('usefile=')[1].split('&')[0]
           await fetch(url).then(res=>res.text()).then(data => {
             chosenDemo = data
           })
+        } else {
+          if(l=document.querySelector('#codearea').value) chosenDemo = l
         }
         tgtRGBA=hexToRGBA(tgt_col)
 				jpg.src=asset
