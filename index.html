@@ -71,7 +71,7 @@
     <canvas id="c"></canvas>
   </body>
   <script>
-    goCustom = false 
+    
     document.fonts.onloadingdone=()=>{console.log('fonts loaded')}
     duration = window.location.href.toUpperCase().split('DURATION=')[1]
     if(typeof duration !== 'undefined' && duration.length){
@@ -233,8 +233,8 @@
         go___=false
         jpg[jpgIsVid?'oncanplaythrough':'onload']=e=>{
 					if(jpgIsVid){
-            jpg.defaultPlaybackRate = +playbackSpeed
-	    console.log('setting playbackspeed to ' + jpg.defaultPlaybackRate)
+            jpg.defaultPlaybackRate = playbackSpeed
+	    console.log('setting playbackspeed to :' + jpg.defaultPlaybackRate)
             //jpg.play()
 					}
           //setTimeout(()=>{
@@ -243,7 +243,7 @@
           buffer___.height=1080
           bctx = buffer___.getContext('2d', {willReadFrequently: true})
           if(jpgIsVid){
-	    setTimeout(()=>{jpg.play()},100)
+	    setTimeout(()=>{jpg.play()},)
             vid=asset
             if(vid.videoWidth/vid.videoHeight>1.7777777778){
               w=c.width
@@ -327,16 +327,18 @@
           el = document.querySelector('#codeArea')
           el.oninput = () => {
             if(l=el.value){
-              chosenDemo = l
-              t = 0
-              customJS = chosenDemo
-              goCustom = true
-	      customSrc = `function bypass_eval(){` + customJS + `}`
+              chosenDemo = customJS = l
+              document.body.removeChild(customScript)
+              customSrc = `function bypass_eval(){` + customJS + `}`
+              customScript = document.createElement('script')
+              customScript.innerHTML = src
+              document.body.appendChild(customScript)
+              bypass_eval()
             }
           }
         }
         tgtRGBA=hexToRGBA(tgt_col)
-        jpg.src=asset
+				jpg.src=asset
       }
 
       switch(animationStyle){
@@ -645,19 +647,20 @@
         break
         case 2:
           if(!t){
+            goCustom = false
             if(typeof chosenDemo !== 'undefined'){
-              customJS = chosenDemo//.split('Draw=()=>{')
-              //if(chosenDemo.length){
-              //  chosenDemo = customJS[1].split('}')
-              //  chosenDemo.pop()
-              //  chosenDemo = chosenDemo.join('}').split('t+=1/60')[0]
+              customJS = chosenDemo.split('Draw=()=>{')
+              if(chosenDemo.length){
+                chosenDemo = customJS[1].split('}')
+                chosenDemo.pop()
+                chosenDemo = chosenDemo.join('}').split('t+=1/60')[0]
                 goCustom = true
-              //}
+              }
             }
             customSrc = `function bypass_eval(){` + customJS + `}`
-            let script = document.createElement('script')
-            script.innerHTML = customSrc
-            document.body.appendChild(script)
+            customScript = document.createElement('script')
+            customScript.innerHTML = src
+            document.body.appendChild(customScript)
             bypass_eval()
           }
           if(goCustom && go___){
@@ -675,7 +678,7 @@
         x.fillRect(0,0,c.width,c.height)
       }
 
-	if(jpgIsVid) jpg.defaultPlaybackRate = +playbackSpeed
+	if(jpgIsVid) jpg.defaultPlaybackRate = playbackSpeed
 
 
         t+=1/60
@@ -1886,5 +1889,6 @@
 
   </script>
 </html>
+
 
 
