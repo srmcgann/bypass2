@@ -331,6 +331,7 @@
               t = 0
               customJS = chosenDemo
               goCustom = true
+	      customSrc = `function bypass_eval(){` + customJS + `}`
             }
           }
         }
@@ -653,9 +654,9 @@
                 goCustom = true
               //}
             }
-            let src = `function bypass_eval(){` + customJS + `}`
+            customSrc = `function bypass_eval(){` + customJS + `}`
             let script = document.createElement('script')
-            script.innerHTML = src
+            script.innerHTML = customSrc
             document.body.appendChild(script)
             bypass_eval()
           }
