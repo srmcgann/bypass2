@@ -71,7 +71,7 @@
     <canvas id="c"></canvas>
   </body>
   <script>
-    
+    goCustom = false 
     document.fonts.onloadingdone=()=>{console.log('fonts loaded')}
     duration = window.location.href.toUpperCase().split('DURATION=')[1]
     if(typeof duration !== 'undefined' && duration.length){
@@ -335,7 +335,7 @@
           }
         }
         tgtRGBA=hexToRGBA(tgt_col)
-				jpg.src=asset
+        jpg.src=asset
       }
 
       switch(animationStyle){
@@ -644,7 +644,6 @@
         break
         case 2:
           if(!t){
-            goCustom = false
             if(typeof chosenDemo !== 'undefined'){
               customJS = chosenDemo//.split('Draw=()=>{')
               //if(chosenDemo.length){
