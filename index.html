@@ -71,7 +71,7 @@
     <canvas id="c"></canvas>
   </body>
   <script>
-
+    
     document.fonts.onloadingdone=()=>{console.log('fonts loaded')}
     duration = window.location.href.toUpperCase().split('DURATION=')[1]
     if(typeof duration !== 'undefined' && duration.length){
@@ -324,7 +324,20 @@
             chosenDemo = data
           })
         } else {
-          if(l=document.querySelector('#codearea').value) chosenDemo = l
+          el = document.querySelector('#codeArea')
+          el.oninput = () => {
+            if(l=el.value){
+              chosenDemo = l
+
+              customJS = chosenDemo.split('Draw=()=>{')
+              if(chosenDemo.length){
+                chosenDemo = customJS[1].split('}')
+                chosenDemo.pop()
+                chosenDemo = chosenDemo.join('}').split('t+=1/60')[0]
+                goCustom = true
+              }
+            }
+          }
         }
         tgtRGBA=hexToRGBA(tgt_col)
 				jpg.src=asset
