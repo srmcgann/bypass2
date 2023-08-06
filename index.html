@@ -334,7 +334,7 @@
 	      }
 	      customSrc = `function bypass_eval(){` + customJS + `}`
               customScript = document.createElement('script')
-              customScript.innerHTML = src
+              customScript.innerHTML = customSrc
               document.body.appendChild(customScript)
               bypass_eval()
             }
