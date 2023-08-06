@@ -328,14 +328,8 @@
           el.oninput = () => {
             if(l=el.value){
               chosenDemo = l
-
-              customJS = chosenDemo.split('Draw=()=>{')
-              if(chosenDemo.length){
-                chosenDemo = customJS[1].split('}')
-                chosenDemo.pop()
-                chosenDemo = chosenDemo.join('}').split('t+=1/60')[0]
-                goCustom = true
-              }
+              customJS = chosenDemo
+              goCustom = true
             }
           }
         }
@@ -651,13 +645,13 @@
           if(!t){
             goCustom = false
             if(typeof chosenDemo !== 'undefined'){
-              customJS = chosenDemo.split('Draw=()=>{')
-              if(chosenDemo.length){
-                chosenDemo = customJS[1].split('}')
-                chosenDemo.pop()
-                chosenDemo = chosenDemo.join('}').split('t+=1/60')[0]
+              customJS = chosenDemo//.split('Draw=()=>{')
+              //if(chosenDemo.length){
+              //  chosenDemo = customJS[1].split('}')
+              //  chosenDemo.pop()
+              //  chosenDemo = chosenDemo.join('}').split('t+=1/60')[0]
                 goCustom = true
-              }
+              //}
             }
             let src = `function bypass_eval(){` + customJS + `}`
             let script = document.createElement('script')
