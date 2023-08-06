@@ -71,7 +71,8 @@
     <canvas id="c"></canvas>
   </body>
   <script>
-    chosenDemo = ' ' 
+    chosenDemo = ' '
+    goCustom = false
     document.fonts.onloadingdone=()=>{console.log('fonts loaded')}
     duration = window.location.href.toUpperCase().split('DURATION=')[1]
     if(typeof duration !== 'undefined' && duration.length){
@@ -328,8 +329,10 @@
           el.oninput = () => {
             if(l=el.value){
               chosenDemo = customJS = l
-              document.body.removeChild(customScript)
-              customSrc = `function bypass_eval(){` + customJS + `}`
+ 	      if(customScript){
+		document.body.removeChild(customScript)
+	      }
+	      customSrc = `function bypass_eval(){` + customJS + `}`
               customScript = document.createElement('script')
               customScript.innerHTML = src
               document.body.appendChild(customScript)
@@ -647,15 +650,14 @@
         break
         case 2:
           if(!t){
-            goCustom = false
             if(typeof chosenDemo !== 'undefined'){
-              customJS = chosenDemo.split('Draw=()=>{')
-              if(chosenDemo.length){
-                chosenDemo = customJS[1].split('}')
-                chosenDemo.pop()
-                chosenDemo = chosenDemo.join('}').split('t+=1/60')[0]
+              customJS = chosenDemo//.split('Draw=()=>{')
+              //if(chosenDemo.length){
+              //  chosenDemo = customJS[1].split('}')
+              //  chosenDemo.pop()
+              //  chosenDemo = chosenDemo.join('}').split('t+=1/60')[0]
                 goCustom = true
-              }
+              //}
             }
             customSrc = `function bypass_eval(){` + customJS + `}`
             customScript = document.createElement('script')
