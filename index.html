@@ -34,6 +34,22 @@
       .newDiv{
         text-align: center;
       }
+      #goButton{
+        border: none;
+        background: #0fc4;
+        color: #fff;
+        cursor: pointer;
+        position: fixed;
+        top: 0;
+        right: 20px;
+        margin: 20px;
+        font-size: 24px;
+        border-radius: 10px;
+        min-width: 100px;
+        line-height: 0;
+        padding: 0;
+        height: 40px;
+      }
       .imgThumb{
         width: calc(100% - 50px);
         margin:25px;
@@ -45,11 +61,8 @@
         transform: translate(-50%,-50%);
         font-size: 24px;
       }
-      #codeArea:focus{
-        outline: none;
-      }
       #codeArea{
-        width: calc(100vw - 100px);
+        width: calc(100vw - 65px);
         border: 1px solid #4f88;
         position: absolute;
         left: 50%;
@@ -59,9 +72,12 @@
         background: #002;
         color: #0f8;
       }
+      #codeArea:focus{
+        outline: none;
+      }
     </style>
     <script>
-      url = location.href.split('src=')[1].split('&')[0]
+      url = location.href.indexOf('src=') != -1 ? location.href.split('src=')[1].split('&')[0] : ''
     </script>
   </head>
   <body>
@@ -69,10 +85,10 @@
     <div style="font-family: courier;position:absolute; z-index:-100">a</div>
     <textarea placeholder="code" spellcheck="false" id="codeArea"></textarea>
     <canvas id="c"></canvas>
+    <button id="goButton" onclick="launch_()">go</button>
   </body>
   <script>
-    chosenDemo = ' '
-    goCustom = false
+
     document.fonts.onloadingdone=()=>{console.log('fonts loaded')}
     duration = window.location.href.toUpperCase().split('DURATION=')[1]
     if(typeof duration !== 'undefined' && duration.length){
@@ -149,7 +165,7 @@
     }
     rsz()
 
-    async function Draw_(){
+    async function Draw(){
 
       if(!t){
         var srcimg = url
@@ -318,27 +334,13 @@
         } else {
           animationStyle=0
         }
-        if(window.location.href.indexOf('usefile=')!=-1){
+        if(window.location.href.indexOf('usecode=')!=-1){
           animationStyle=2
-          url=window.location.href.split('usefile=')[1].split('&')[0]
+          url=window.location.href.split('usecode=')[1].split('&')[0]
           await fetch(url).then(res=>res.text()).then(data => {
             chosenDemo = data
+            launch_(1)
           })
-        } else {
-          el = document.querySelector('#codeArea')
-          el.oninput = () => {
-            if(l=el.value){
-              chosenDemo = customJS = l
- 	      if(typeof customScript !== 'undefined'){
-		document.body.removeChild(customScript)
-	      }
-	      customSrc = `function bypass_eval(){` + customJS + `}`
-              customScript = document.createElement('script')
-              customScript.innerHTML = customSrc
-              document.body.appendChild(customScript)
-              bypass_eval()
-            }
-          }
         }
         tgtRGBA=hexToRGBA(tgt_col)
 				jpg.src=asset
@@ -650,19 +652,15 @@
         break
         case 2:
           if(!t){
+            goCustom = false
             if(typeof chosenDemo !== 'undefined'){
-              customJS = chosenDemo//.split('Draw=()=>{')
-              //if(chosenDemo.length){
-              //  chosenDemo = customJS[1].split('}')
-              //  chosenDemo.pop()
-              //  chosenDemo = chosenDemo.join('}').split('t+=1/60')[0]
-                goCustom = true
-              //}
+              customJS = chosenDemo//.demoJS.split('Draw=()=>{')
+              goCustom = true
             }
-            customSrc = `function bypass_eval(){` + customJS + `}`
-            customScript = document.createElement('script')
-            customScript.innerHTML = customSrc
-            document.body.appendChild(customScript)
+            let src = `function bypass_eval(){` + customJS + `}`
+            let script = document.createElement('script')
+            script.innerHTML = src
+            document.body.appendChild(script)
             bypass_eval()
           }
           if(goCustom && go___){
@@ -1804,7 +1802,7 @@
       //x2.drawImage(c, -canvas2.width/2*sc, -canvas2.height/2*sc, canvas2.width*sc, canvas2.height*sc)
       x2.drawImage(c,0,0,canvas2.width,canvas2.height)
       //x2.restore()
-      requestAnimationFrame(Draw_)
+      requestAnimationFrame(Draw)
     }
 
     setupAnalyzerAndContent = () =>{
@@ -1883,14 +1881,21 @@
       document.body.appendChild(a)
     }
   
-    if(stage2) Draw_()
-    if(!stage2){
-      Draw_()
+    launch_ = (mode=false) => {
+      if(!mode){
+        chosenDemo = document.querySelector('#codeArea').value
+        goCustom =  true
+      }
+      Draw()
       if(export_base) setTimeout(()=>startRecording(), initialDelay)
     }
 
+    if(stage2) Draw()
+    //if(!stage2){
+    //  launch_()
+    //}
+
   </script>
 </html>
-
 
 
