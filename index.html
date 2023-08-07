@@ -85,7 +85,7 @@
     <div style="font-family: courier;position:absolute; z-index:-100">a</div>
     <textarea placeholder="code" spellcheck="false" id="codeArea"></textarea>
     <canvas id="c"></canvas>
-    <button id="goButton" onclick="launch_()">go</button>
+    <button id="goButton" onclick="launch_(false)">go</button>
   </body>
   <script>
 
@@ -339,7 +339,7 @@
           url=window.location.href.split('usecode=')[1].split('&')[0]
           await fetch(url).then(res=>res.text()).then(data => {
             chosenDemo = data
-            launch_(1)
+            launch_(true)
           })
         }
         tgtRGBA=hexToRGBA(tgt_col)
@@ -1884,8 +1884,10 @@
     launch_ = (mode=false) => {
       if(!mode){
         chosenDemo = document.querySelector('#codeArea').value
+        console.log(chosenDemo)
         goCustom =  true
       }
+      animationStyle = 2
       Draw()
       if(export_base) setTimeout(()=>startRecording(), initialDelay)
     }
