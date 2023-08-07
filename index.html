@@ -328,12 +328,13 @@
         } else {
           tgt_col='#eab29c'
         }
-        animationStyle=window.location.href.toUpperCase().split('ANIMATIONSTYLE=')[1]
+        animationStyle=0
+        /*animationStyle=window.location.href.toUpperCase().split('ANIMATIONSTYLE=')[1]
         if(typeof animationStyle !== 'undefined' && animationStyle.length){
           animationStyle=+animationStyle.split('&')[0]
         } else {
           animationStyle=0
-        }
+        }*/
         if(window.location.href.indexOf('usecode=')!=-1){
           animationStyle=2
           url=window.location.href.split('usecode=')[1].split('&')[0]
@@ -1886,6 +1887,8 @@
         chosenDemo = document.querySelector('#codeArea').value
         console.log(chosenDemo)
         goCustom =  true
+      } else {
+        document.querySelector('#codeArea').value = chosenDemo
       }
       animationStyle = 2
       Draw()
