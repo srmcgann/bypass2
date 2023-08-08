@@ -259,8 +259,8 @@
 					jpg=new Image()
 				}
         go___=false
-        jpg[jpgIsVid?'oncanplaythrough':'onload']=e=>{
-					if(jpgIsVid){
+        jpg[jpgIsVid?'oncanplay':'onload']=e=>{
+					if(1||jpgIsVid){
             jpg.defaultPlaybackRate = playbackSpeed
 	    console.log('setting playbackspeed to :' + jpg.defaultPlaybackRate)
             //jpg.play()
