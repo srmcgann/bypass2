@@ -119,16 +119,16 @@
 
     recordingStarted=playing=vidplaying=analyzerSetup=0
     canvas2 = document.querySelector("#c")
-    canvas2.width = 1920/2|0
-    canvas2.height = 1080/2|0
+    canvas2.width = 1920|0
+    canvas2.height = 1080|0
     x2 = canvas2.getContext('2d')
     c = canvas2.cloneNode()
     c.id = 'canvas2'
     c.style.visibility = 'hidden'
     c.style.position = 'absolute'
     document.body.appendChild(c)
-    c.width=1920/2
-    c.height=1080/2
+    c.width=1920
+    c.height=1080
     c.style.width='calc(' + 1920 + 'px - 10px)'
     c.style.height='calc(' + 1080 + 'px - 10px)'
 
@@ -149,7 +149,7 @@
           c.style.width = 'calc(100vw - 40px)'
           setTimeout(()=>c.style.height = 'calc(' + (c.clientWidth/1.77777778+1|0)+'px)',0)
         }
-        c.width=1920/2
+        c.width=1920
         c.height=c.width/1.777777778+1|0
         if(document.body.clientWidth > document.body.clientHeight*1.77777778+1|0){
           canvas2.style.height = 'calc(100vh - 40px)'
