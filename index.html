@@ -260,11 +260,10 @@
 				}
         go___=false
         jpg[jpgIsVid?'oncanplay':'onload']=e=>{
-					if(1||jpgIsVid){
-            jpg.defaultPlaybackRate = playbackSpeed
-	    console.log('setting playbackspeed to :' + jpg.defaultPlaybackRate)
-            //jpg.play()
-					}
+					if(jpgIsVid){
+            jpg.defaultPlaybackRate = jpg.playbackRate = playbackSpeed
+            jpg.play()
+	}
           //setTimeout(()=>{
           buffer___ = document.createElement('canvas')
           buffer___.width=c.width
@@ -681,7 +680,7 @@
         x.fillRect(0,0,c.width,c.height)
       }
 
-	if(jpgIsVid) jpg.defaultPlaybackRate = playbackSpeed
+	if(jpgIsVid) jpg.defaultPlaybackRate = jpg.playbackRate = playbackSpeed
 
 
         t+=1/60
@@ -1804,7 +1803,6 @@
       sc = 1
       //x2.drawImage(c, -canvas2.width/2*sc, -canvas2.height/2*sc, canvas2.width*sc, canvas2.height*sc)
       x2.drawImage(c,0,0,canvas2.width,canvas2.height)
-      console.log(jpg.defaultPlaybackRate)
       //x2.restore()
       requestAnimationFrame(Draw)
     }
