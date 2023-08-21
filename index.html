@@ -675,7 +675,7 @@
       if(go___){
 				if(jpgIsVid)getMask()
         x.globalAlpha=1
-        x.drawImage(buffer___,0,0,c.width,c.height)
+        if(typeof buffer___ != 'undefined') x.drawImage(buffer___,0,0,c.width,c.height)
       }else{
         x.globalAlpha=1
         x.fillStyle='#0008'
