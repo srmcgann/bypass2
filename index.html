@@ -289,7 +289,7 @@
             }
 					}
 					getMask=()=>{
-            bctx.clearRect(0,0,c.width,c.height)
+            bctx.clearRect(0,0,w=c.width,h=c.height)
             bctx.drawImage(jpg,c.width/2-w/2,c.height/2-h/2,w,h)
             data = bctx.getImageData(0,0,buffer___.width,buffer___.height)
             l=data.data
@@ -857,7 +857,7 @@
             framels=5
             if(vid){
               x.globalAlpha=.5
-              x.drawImage(bgvid,0,0,w=c.width,c.height);
+              x.drawImage(bgvid,0,0,w=c.width,h=c.height);
               x.globalAlpha=1
               x.fillStyle='#0005'
               x.fillRect(0,0,w=c.width,w)
