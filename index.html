@@ -241,12 +241,15 @@
         Q=()=>[c.width/2+X/Z*900,c.height/2+Y/Z*900]
         for(CB=[],j=6;j--;)for(i=4;i--;)CB=[...CB,[(a=[S(p=Math.PI*2/4*i+Math.PI/4),C(p),2**.5/2])[j%3]*(l=j<3?-1:1),a[(j+1)%3]*l,a[(j+2)%3]*l]]
         s = location.href.indexOf('src=') != -1 ? window.location.href.split('src=')[1].split('?')[0] : ''
+        go___=false
         if(typeof s !== 'undefined' && s.length){
           s=s.split('&')[0]
           asset=s
         } else {
           if(srcimg.length){
             asset=srcimg
+          } else {
+            go___ = true
           }
         }
         if(asset.indexOf('.mp4')!==-1 || asset.indexOf('.webm')!==-1){
@@ -258,7 +261,6 @@
 					jpgIsVid=false
 					jpg=new Image()
 				}
-        go___=false
         jpg[jpgIsVid?'oncanplaythrough':'onload']=e=>{
 					if(jpgIsVid){
             jpg.defaultPlaybackRate = jpg.playbackRate = playbackSpeed
@@ -289,7 +291,7 @@
             }
 					}
 					getMask=()=>{
-            bctx.clearRect(0,0,c.width,c.height)
+            bctx.clearRect(0,0,w=c.width,h=c.height)
             bctx.drawImage(jpg,c.width/2-w/2,c.height/2-h/2,w,h)
             data = bctx.getImageData(0,0,buffer___.width,buffer___.height)
             l=data.data
@@ -857,7 +859,7 @@
             framels=5
             if(vid){
               x.globalAlpha=.5
-              x.drawImage(bgvid,0,0,w=c.width,c.height);
+              x.drawImage(bgvid,0,0,w=c.width,h=c.height);
               x.globalAlpha=1
               x.fillStyle='#0005'
               x.fillRect(0,0,w=c.width,w)
