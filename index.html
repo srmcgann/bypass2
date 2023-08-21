@@ -88,7 +88,7 @@
     <button id="goButton" onclick="launch_(false)">go</button>
   </body>
   <script>
-
+    asset = ''
     document.fonts.onloadingdone=()=>{console.log('fonts loaded')}
     duration = window.location.href.toUpperCase().split('DURATION=')[1]
     if(typeof duration !== 'undefined' && duration.length){
