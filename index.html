@@ -663,7 +663,7 @@
               customJS = chosenDemo//.demoJS.split('Draw=()=>{')
               goCustom = true
             }
-            let src = `function bypass_eval(){` + customJS + `}`
+            let src = `async function bypass_eval(){` + customJS + `}`
             let script = document.createElement('script')
             script.innerHTML = src
             document.body.appendChild(script)
